@@ -7,19 +7,6 @@ const fetchUsers = (page) =>
     .then((response) => response.json())
     .then(({ results }) => results);
 
-export async function* mapUsers(users) {
-  for await (const user of users) {
-    yield {
-      gender: user.gender,
-      name: `${user.name.title} ${user.name.first} ${user.name.last}`,
-      city: user.location.city,
-      email: user.email,
-      phone: user.phone,
-      picture: user.picture.thumbnail,
-    };
-  }
-}
-
 export async function* generateUsers() {
   let page = 0;
 
