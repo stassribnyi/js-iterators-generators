@@ -1,5 +1,4 @@
 import fetch from 'node-fetch';
-import { delay } from './promise.utils.js';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -24,7 +23,7 @@ export const USERS = {
 
     while (true) {
       for (const user of await fetchUsers(page)) {
-        yield await delay(500).then(() => user);
+        yield user;
       }
 
       page++;
