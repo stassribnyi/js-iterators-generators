@@ -3,7 +3,8 @@ import { NewsProvider } from './generator.js';
 
 import { USERS_SYNC, USERS_ASYNC } from './users-iterators/index.js';
 import { generateUsers } from './users-async.generator.js';
-import { delayed, map, pipe } from './iterable.utils.js';
+import { map, pipe } from './iterable.utils.js';
+import { delay } from './promise.utils.js';
 
 // Demo
 const users = new UsersProvider(['Bran', 'John', 'Stan', 'Kate']);
@@ -37,7 +38,7 @@ for (const user of USERS_SYNC) {
 
   for await (const user of pipe(
     map(({ name }) => ({ name })),
-    delayed(1)
+    map((user) => delay(1000).then(() => user))
   )(generateUsers())) {
     console.log(user);
   }
